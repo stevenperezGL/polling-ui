@@ -1,5 +1,18 @@
 <!--The content below is only a placeholder and can be replaced.-->
 <app-poll-header></app-poll-header>
-<app-poll-settings></app-poll-settings>
-<app-poll-vote></app-poll-vote>
-<app-poll-chart></app-poll-chart>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <app-poll-settings></app-poll-settings>
+        </div>
+        <div class="col-md-8">
+            <div>
+                <i class="fa fa-user"></i>
+            </div>
+            <div class="border rounded">
+                <app-poll-vote></app-poll-vote>
+                <app-poll-chart></app-poll-chart>
+            </div>
+        </div>
+    </div>
+</div>

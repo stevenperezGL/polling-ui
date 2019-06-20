@@ -1,3 +1,34 @@
-<p>
-  poll-settings works!
-</p>
+<h2> Settings </h2>
+<div class="container border rounded">
+    <div class="row justify-content-md-center">
+        <div>
+            <button type="button" class="btn btn-primary" (click)="createRoom()">Create Room</button>
+        </div>
+        <div *ngIf="showSecretKey">
+            <span>SECRET ROOM: {{secretRoomKey}}</span>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+      <select class="browser-default custom-select">
+          <option selected disabled>Options</option>
+          <option value="1">Fibonacci</option>
+          <option value="2">Colors</option>
+          <option value="3">Questions</option>
+      </select>
+      </div>
+      <div class="col-md-6">
+        <div>
+            <button type="button" class="btn btn-success">START POLL</button>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <input class="form-control" type="text" placeholder="Secret" [(ngModel)]="secretInput">
+        </div>
+        <div class="col-md-6">
+            <button type="button" class="btn btn-primary" (click)="joinRoom()">JOIN POLL</button>
+        </div>
+    </div>
+</div>

@@ -6,6 +6,7 @@ import { PollSettingsComponent } from './components/poll-settings/poll-settings.
 import { PollVoteComponent } from './components/poll-vote/poll-vote.component';
 import { PollChartComponent } from './components/poll-chart/poll-chart.component';
 import { PollHeaderComponent } from './components/poll-header/poll-header.component';
+import {FormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import { PollHeaderComponent } from './components/poll-header/poll-header.compon
     PollHeaderComponent
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
