@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SocketService} from './socket/socket.service';
 import {SocketEvent} from './socket/socket.interface';
 
@@ -11,7 +11,7 @@ export class AppComponent implements OnInit {
   title = 'polling-ui';
   public userId = localStorage.getItem('userId');
 
-  constructor(public pollComponent: PollSettingsComponent, private socket: SocketService) {
+  constructor(private socket: SocketService) {
     this.socket.initConnection();
     this.socket.client.on(SocketEvent.CONNECTION, (msg) => {
       console.log('=========  CONNECTION  =========');
