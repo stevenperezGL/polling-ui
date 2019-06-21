@@ -12,8 +12,9 @@ export class PollSettingsComponent implements OnInit {
   public showSecretKey = false;
   public secretRoomKey: string;
   public secretInput: string;
-  @Input()
   public pollType = 'Fibonacci';
+  @Input()
+  public userId: string;
   private options = {
     votingMethod: 'Fibonacci',
     action: '',
@@ -26,11 +27,15 @@ export class PollSettingsComponent implements OnInit {
   }
 
   public joinRoom() {
-    console.log('Join Room -> Secret key: ' + this.secretInput);
+    const joinPayload = {
+      userId: this.userId,
+      secretKey: this.secretInput
+    };
+    this.socket.client.emit(SocketEvent.JOIN_ROOM, JSON.stringify(joinPayload));
   }
 
   public createRoom() {
-    this.socket.client.emit(SocketEvent.CREATE_ROOM, );
+    this.socket.client.emit(SocketEvent.CREATE_ROOM);
   }
 
   public revealPoll() {
