@@ -26,11 +26,11 @@ export class PollSettingsComponent implements OnInit {
   }
 
   public joinRoom() {
-    console.log('Join Room -> Secret key: ' + this.secretInput);
+    this.socket.client.emit(SocketEvent.JOIN_ROOM, JSON.stringify(this.secretInput));
   }
 
   public createRoom() {
-    this.socket.client.emit(SocketEvent.CREATE_ROOM, );
+    this.socket.client.emit(SocketEvent.CREATE_ROOM);
   }
 
   public revealPoll() {
