@@ -36,5 +36,8 @@ export class AppComponent implements OnInit {
   private getOptions(secretKey: string): void {
     this.socket.client.emit(SocketEvent.GET_OPTIONS, secretKey);
   }
-
+  public getPollStatus() {
+    const pollStatus = localStorage.getItem('pollStatus');
+    return pollStatus ? pollStatus : '';
+  }
 }
