@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-poll-vote',
@@ -7,7 +7,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PollVoteComponent implements OnInit {
 
-  constructor() { }
+  @Input() options: [];
+
+  constructor() { 
+  }
 
   ngOnInit() {
   }
