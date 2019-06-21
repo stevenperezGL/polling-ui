@@ -16,18 +16,28 @@ export class PollSettingsComponent implements OnInit {
   }
 
   ngOnInit() {
-  }
-
-  public joinRoom() {
-    console.log('Join Room -> Secret key: ' + this.secretInput);
+    this.socket.client.on(SocketEvent.CREATE_ROOM, (secretKey) => {
+      console.log('=========  CREATE_ROOM  =========');
+      console.log(secretKey);
+      console.log('=====  End of CREATE_ROOM>  =====');
+      this.secretRoomKey = secretKey;
+    });
+    this.socket.client.on(SocketEvent.JOIN_ROOM, (msg) => {
+      console.log('=========  JOIN_ROOM  =========');
+      console.log(msg);
+      console.log('=====  End of JOIN_ROOM>  =====');
+    });
   }
 
   public createRoom() {
     this.socket.client.emit(SocketEvent.CREATE_ROOM);
-    this.socket.client.on(SocketEvent.CREATE_ROOM, (msg) => {
-      console.log('=========  msg  =========');
-      console.log(msg);
-      console.log('=====  End of msg>  =====');
-    });
+  }
+
+  public joinPoll() {
+    const payload = {
+      userId: 'asdasd@!#@#@!',
+      secretKey: this.secretRoomKey,
+    };
+    this.socket.client.emit(SocketEvent.JOIN_ROOM, JSON.stringify(payload));
   }
 }
