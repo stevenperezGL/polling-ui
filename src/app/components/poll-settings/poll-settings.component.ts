@@ -1,7 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SocketService} from '../../socket/socket.service';
 import {SocketEvent} from '../../socket/socket.interface';
-import {ComponentFixtureNoNgZone} from "@angular/core/testing";
 
 @Component({
   selector: 'app-poll-settings',
@@ -39,6 +38,8 @@ export class PollSettingsComponent implements OnInit {
   private initListenCreateRoom() {
     this.socket.client.on(SocketEvent.CREATE_ROOM, (secretKey) => {
       this.secretRoomKey = secretKey;
+      this.showSecretKey = true;
+      localStorage.setItem('secretKey', secretKey);
       console.log('=========  CREATE_ROOM  =========');
       console.log(secretKey);
       console.log('=====  End of CREATE_ROOM>  =====');
@@ -48,6 +49,9 @@ export class PollSettingsComponent implements OnInit {
 
   private initListenJoinPoll(secretKey: string) {
     this.socket.client.on(`${SocketEvent.JOIN_ROOM}-${secretKey}`, (msg) => {
+      // Example {"roomId":"028a8360-9474-11e9-8f64-6f1b60dcd850","userId":null,"connectedUsers":2}
+      const joinResponse = JSON.parse(msg);
+      localStorage.setItem('connectedUsers', joinResponse.connectedUsers);
       console.log('=========  JOIN_ROOM  =========');
       console.log(msg);
       console.log('=====  End of JOIN_ROOM>  =====');
