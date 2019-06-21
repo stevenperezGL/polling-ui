@@ -19,15 +19,7 @@ export class PollSettingsComponent implements OnInit {
     votingMethod: 'Fibonacci',
     action: '',
     secretKey: '',
-    options: [
-      '1',
-      '2',
-      '3',
-      '5',
-      '8',
-      '13',
-      '21',
-    ]
+    options: localStorage.getItem('options')
   };
   constructor( private socket: SocketService) {
   }
@@ -108,7 +100,8 @@ export class PollSettingsComponent implements OnInit {
   public revealPoll() {
     this.pollOptions.action = 'reveal-poll';
     this.pollOptions.votingMethod = this.pollType;
-    this.pollOptions.secretKey = this.secretInput;
+    this.pollOptions.secretKey = localStorage.getItem('secretKey');
+    localStorage.setItem('pollStatus', 'reveal-poll');
     this.socket.client.emit(SocketEvent.POLL_ACTIONS, JSON.stringify(this.pollOptions));
   }
 
@@ -116,6 +109,7 @@ export class PollSettingsComponent implements OnInit {
     this.pollOptions.action = 'start-poll';
     this.pollOptions.votingMethod = this.pollType;
     this.pollOptions.secretKey = localStorage.getItem('secretKey');
+    localStorage.setItem('pollStatus', 'start-poll');
     this.socket.client.emit(SocketEvent.POLL_ACTIONS, JSON.stringify(this.pollOptions));
   }
 }
