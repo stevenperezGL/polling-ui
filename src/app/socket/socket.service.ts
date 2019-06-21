@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import Socket = SocketIOClient.Socket;
 
-import { environment,  WS_RANDOMIZATION_FACTOR, WS_RECONNECT_DELAY, WS_RECONNECT_TRIES } from '../../environments/environment';
+import { environment } from '../../environments/environment';
 import {SocketEvent} from './socket.interface';
 
 @Injectable()
@@ -16,19 +16,8 @@ export class SocketService {
     return `${environment.serviceEventSocket}`;
   }
 
-  public getClientConfig() {
-    return {
-      brokerURL: this.buildBrokerURL(),
-      reconnectionAttempts: WS_RECONNECT_TRIES,
-      reconnectionDelay: WS_RECONNECT_DELAY,
-      randomizationFactor: WS_RANDOMIZATION_FACTOR,
-      transports: ['websocket']
-    };
-  }
-
   public initSocketClient(): void {
-    const options = this.getClientConfig();
-    this.client = io(this.buildBrokerURL(), options);
+    this.client = io(this.buildBrokerURL());
   }
 
   public initConnection(): void {
@@ -56,7 +45,7 @@ export class SocketService {
     this.client.emit(SocketEvent.JOIN_ROOM, room);
   }
 
-  public leaveRoom(room: string): void {
-    this.client.emit(SocketEvent.LEAVE_ROOM, room);
+  public quitRoom(room: string): void {
+    this.client.emit(SocketEvent.QUIT_ROOM, room);
   }
 }
