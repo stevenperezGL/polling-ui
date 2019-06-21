@@ -1,5 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SocketService} from '../../socket/socket.service';
+import {SocketEvent} from "../../socket/socket.interface";
 
 @Component({
   selector: 'app-poll-settings',
@@ -11,18 +12,22 @@ export class PollSettingsComponent implements OnInit {
   public showSecretKey = false;
   public secretRoomKey: string;
   public secretInput: string;
-  constructor( private socketService: SocketService) {
+  constructor( private socket: SocketService) {
   }
 
   ngOnInit() {
   }
 
-  public createRoom() {
-    this.secretRoomKey = 'XADDASAAKLKSD0';
-    this.showSecretKey = !this.showSecretKey;
-  }
-
   public joinRoom() {
     console.log('Join Room -> Secret key: ' + this.secretInput);
+  }
+
+  public createRoom() {
+    this.socket.joinToRoom(SocketEvent.CREATE_ROOM);
+    this.socket.client.on(SocketEvent.CREATE_ROOM, (msg) => {
+      console.log('=========  msg  =========');
+      console.log(msg);
+      console.log('=====  End of msg>  =====');
+    });
   }
 }

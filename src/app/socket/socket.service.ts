@@ -1,9 +1,8 @@
-import { Injectable, Injector } from '@angular/core';
+import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
-import { Observable, Subject, Subscription } from 'rxjs';
 import Socket = SocketIOClient.Socket;
 
-import { environment, WS_PATH, WS_RANDOMIZATION_FACTOR, WS_RECONNECT_DELAY, WS_RECONNECT_TRIES } from '../../environments/environment';
+import { environment,  WS_RANDOMIZATION_FACTOR, WS_RECONNECT_DELAY, WS_RECONNECT_TRIES } from '../../environments/environment';
 import {SocketEvent} from './socket.interface';
 
 @Injectable()
@@ -19,7 +18,6 @@ export class SocketService {
 
   public getClientConfig() {
     return {
-      path: WS_PATH,
       brokerURL: this.buildBrokerURL(),
       reconnectionAttempts: WS_RECONNECT_TRIES,
       reconnectionDelay: WS_RECONNECT_DELAY,
