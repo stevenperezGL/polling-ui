@@ -21,4 +21,9 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {}
+
+  public getPollStatus() {
+    const pollStatus = localStorage.getItem('pollStatus');
+    return pollStatus ? pollStatus : '';
+  }
 }

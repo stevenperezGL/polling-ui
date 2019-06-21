@@ -10,8 +10,8 @@
                 <app-poll-layout></app-poll-layout>
             </div>
             <div class="border rounded">
-                <app-poll-vote></app-poll-vote>
-                <app-poll-chart></app-poll-chart>
+                <app-poll-vote *ngIf="getPollStatus() === 'start-poll'"></app-poll-vote>
+                <app-poll-chart *ngIf="getPollStatus() === 'reveal-poll'"></app-poll-chart>
             </div>
         </div>
     </div>

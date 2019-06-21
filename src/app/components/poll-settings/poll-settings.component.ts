@@ -15,10 +15,19 @@ export class PollSettingsComponent implements OnInit {
   public pollType = 'Fibonacci';
   @Input()
   public userId: string;
-  private options = {
+  private pollOptions = {
     votingMethod: 'Fibonacci',
     action: '',
-    secretKey: ''
+    secretKey: '',
+    options: [
+      '1',
+      '2',
+      '3',
+      '5',
+      '8',
+      '13',
+      '21',
+    ]
   };
   constructor( private socket: SocketService) {
   }
@@ -64,13 +73,12 @@ export class PollSettingsComponent implements OnInit {
       console.log(msg);
       console.log('=====  End of POLL_ACTIONS>  =====');
       const message: any = JSON.parse(msg);
-
       switch (message.action) {
         case 'start-poll':
-          console.log('llego un start poll');
+          localStorage.setItem('pollStatus', message.action);
           break;
         case 'reveal-poll':
-          console.log('llego un reveal-poll');
+          localStorage.setItem('pollStatus', message.action);
           break;
         default:
           console.log('que torta llego: ' + message.action);
@@ -98,16 +106,16 @@ export class PollSettingsComponent implements OnInit {
   }
 
   public revealPoll() {
-    this.options.action = 'reveal-poll';
-    this.options.votingMethod = this.pollType;
-    this.options.secretKey = this.secretInput;
-    this.socket.client.emit(SocketEvent.POLL_ACTIONS, JSON.stringify(this.options));
+    this.pollOptions.action = 'reveal-poll';
+    this.pollOptions.votingMethod = this.pollType;
+    this.pollOptions.secretKey = this.secretInput;
+    this.socket.client.emit(SocketEvent.POLL_ACTIONS, JSON.stringify(this.pollOptions));
   }
 
   public startPoll() {
-    this.options.action = 'start-poll';
-    this.options.votingMethod = this.pollType;
-    this.options.secretKey = this.secretInput;
-    this.socket.client.emit(SocketEvent.POLL_ACTIONS, JSON.stringify(this.options));
+    this.pollOptions.action = 'start-poll';
+    this.pollOptions.votingMethod = this.pollType;
+    this.pollOptions.secretKey = localStorage.getItem('secretKey');
+    this.socket.client.emit(SocketEvent.POLL_ACTIONS, JSON.stringify(this.pollOptions));
   }
 }
