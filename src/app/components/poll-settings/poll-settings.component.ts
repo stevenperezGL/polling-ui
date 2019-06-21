@@ -23,7 +23,7 @@ export class PollSettingsComponent implements OnInit {
   }
 
   public createRoom() {
-    this.socket.joinToRoom(SocketEvent.CREATE_ROOM);
+    this.socket.client.emit(SocketEvent.CREATE_ROOM);
     this.socket.client.on(SocketEvent.CREATE_ROOM, (msg) => {
       console.log('=========  msg  =========');
       console.log(msg);
