@@ -2,7 +2,7 @@
 <div class="container border rounded">
     <div class="row justify-content-md-center">
         <div>
-            <button type="button" class="btn btn-primary" (click)="createRoom()">Create Room</button>
+            <button type="button" class="btn btn-primary" (click)="createRoom()">CREATE ROOM</button>
         </div>
         <div *ngIf="showSecretKey">
             <span>SECRET ROOM: {{secretRoomKey}}</span>
@@ -29,6 +29,11 @@
         </div>
         <div class="col-md-6">
             <button type="button" class="btn btn-primary" (click)="joinRoom()">JOIN POLL</button>
+        </div>
+    </div>
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+        <button type="button" class="btn btn-primary" (click)="revealPoll()">REVEAL POLL</button>
         </div>
     </div>
 </div>
