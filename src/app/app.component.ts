@@ -10,6 +10,7 @@ import {SocketEvent} from './socket/socket.interface';
 })
 export class AppComponent implements OnInit {
   title = 'polling-ui';
+  public userId = localStorage.getItem('userId');
 
   constructor(private socket: SocketService) {
     this.socket.initConnection();
