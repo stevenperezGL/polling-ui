@@ -8,6 +8,8 @@ import { PollChartComponent } from './components/poll-chart/poll-chart.component
 import { PollHeaderComponent } from './components/poll-header/poll-header.component';
 import {FormsModule} from "@angular/forms";
 import { PollLayoutComponent } from './components/poll-layout/poll-layout.component';
+import {SocketService} from "./socket/socket.service";
+import {SocketEvent} from "./socket/socket.interface";
 
 @NgModule({
   declarations: [
@@ -22,7 +24,13 @@ import { PollLayoutComponent } from './components/poll-layout/poll-layout.compon
     BrowserModule,
     FormsModule
   ],
-  providers: [],
+  providers: [
+    SocketService
+  ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private socket: SocketService) {
+    this.socket.initConnection();
+  }
+}

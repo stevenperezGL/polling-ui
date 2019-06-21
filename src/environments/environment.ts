@@ -1,7 +1,6 @@
 // This file can be replaced during build by using the `fileReplacements` array.
 // `ng build --prod` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
-export const WS_PATH = '/socket/ws';
 export const WS_RANDOMIZATION_FACTOR = 0.7;
 export const WS_RECONNECT_DELAY = 30000;
 export const WS_RECONNECT_TRIES = 3;
