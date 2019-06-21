@@ -40,12 +40,4 @@ export class SocketService {
   public isClientInitialized(): boolean {
     return !!this.client;
   }
-
-  public joinToRoom(room: string): void {
-    this.client.emit(SocketEvent.JOIN_ROOM, room);
-  }
-
-  public quitRoom(room: string): void {
-    this.client.emit(SocketEvent.QUIT_ROOM, room);
-  }
 }

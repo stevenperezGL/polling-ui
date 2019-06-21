@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SocketService} from '../../socket/socket.service';
-import {SocketEvent} from "../../socket/socket.interface";
+import {SocketEvent} from '../../socket/socket.interface';
 
 @Component({
   selector: 'app-poll-settings',
@@ -12,6 +12,13 @@ export class PollSettingsComponent implements OnInit {
   public showSecretKey = false;
   public secretRoomKey: string;
   public secretInput: string;
+  @Input()
+  public pollType = 'Fibonacci';
+  private options = {
+    votingMethod: 'Fibonacci',
+    action: '',
+    secretKey: ''
+  };
   constructor( private socket: SocketService) {
   }
 
@@ -23,11 +30,20 @@ export class PollSettingsComponent implements OnInit {
   }
 
   public createRoom() {
-    this.socket.client.emit(SocketEvent.CREATE_ROOM);
-    this.socket.client.on(SocketEvent.CREATE_ROOM, (msg) => {
-      console.log('=========  msg  =========');
-      console.log(msg);
-      console.log('=====  End of msg>  =====');
-    });
+    this.socket.client.emit(SocketEvent.CREATE_ROOM, );
+  }
+
+  public revealPoll() {
+    this.options.action = 'reveal-poll';
+    this.options.votingMethod = this.pollType;
+    this.options.secretKey = this.secretInput;
+    this.socket.client.emit(SocketEvent.POLL_ACTIONS, JSON.stringify(this.options));
+  }
+
+  public startPoll() {
+    this.options.action = 'start-poll';
+    this.options.votingMethod = this.pollType;
+    this.options.secretKey = this.secretInput;
+    this.socket.client.emit(SocketEvent.POLL_ACTIONS, JSON.stringify(this.options));
   }
 }
