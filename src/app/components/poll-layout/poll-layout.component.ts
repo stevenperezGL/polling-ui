@@ -7,9 +7,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PollLayoutComponent implements OnInit {
 
+  private connectedUsers: string;
   constructor() { }
 
   ngOnInit() {
   }
 
+  public getConnectedUsers() {
+    const connectedUser = localStorage.getItem('connectedUsers');
+    return connectedUser ? connectedUser : 0;
+  }
 }
