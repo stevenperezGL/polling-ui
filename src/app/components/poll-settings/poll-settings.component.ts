@@ -26,11 +26,43 @@ export class PollSettingsComponent implements OnInit {
   ngOnInit() {
   }
 
+  private initListenQuitRoom(secretKey: string) {
+    this.socket.client.on(`${SocketEvent.CONNECTION}-${secretKey}`, (msg) => {
+      console.log('llego un start poll');
+    });
+  }
+  private initListenJoinPoll(secretKey: string) {
+    this.socket.client.on(`${SocketEvent.JOIN_ROOM}-${secretKey}`, (msg) => {
+      console.log('llego un start poll');
+    });
+  }
+  private initListenPollAction(secretKey: string) {
+    this.socket.client.on(`${SocketEvent.POLL_ACTIONS}-${secretKey}`, (msg) => {
+      switch (msg.action) {
+        case 'start-poll':
+          console.log('llego un start poll');
+          break;
+        case 'reveal-poll':
+          console.log('llego un reveal-poll');
+          break;
+        default:
+          console.log('que torta llego: ' + msg.action);
+      }
+    });
+  }
+
+  public listenEvents(secretKey: string) {
+    this.initListenPollAction(secretKey);
+    this.initListenJoinPoll(secretKey);
+    this.initListenQuitRoom(secretKey);
+  }
+
   public joinRoom() {
     const joinPayload = {
       userId: this.userId,
       secretKey: this.secretInput
     };
+    this.listenEvents(this.secretInput);
     this.socket.client.emit(SocketEvent.JOIN_ROOM, JSON.stringify(joinPayload));
   }
 

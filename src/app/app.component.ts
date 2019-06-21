@@ -1,7 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {SocketService} from './socket/socket.service';
 import {SocketEvent} from './socket/socket.interface';
-
 
 @Component({
   selector: 'app-root',
@@ -12,7 +11,7 @@ export class AppComponent implements OnInit {
   title = 'polling-ui';
   public userId = localStorage.getItem('userId');
 
-  constructor(private socket: SocketService) {
+  constructor(public pollComponent: PollSettingsComponent, private socket: SocketService) {
     this.socket.initConnection();
     this.socket.client.on(SocketEvent.CONNECTION, (msg) => {
       console.log('=========  CONNECTION  =========');
@@ -22,39 +21,11 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.initListenPollAction();
     this.initListenCreateRoom();
-    this.initListenJoinPoll();
-    this.initListenQuitRoom();
   }
   private initListenCreateRoom() {
     this.socket.client.on(SocketEvent.CONNECTION, (msg) => {
       console.log('llego un start poll');
-    });
-  }
-  private initListenQuitRoom() {
-    this.socket.client.on(SocketEvent.CONNECTION, (msg) => {
-      console.log('llego un start poll');
-    });
-  }
-  private initListenJoinPoll() {
-    this.socket.client.on(SocketEvent.JOIN_ROOM, (msg) => {
-      console.log('llego un start poll');
-    });
-  }
-
-  private initListenPollAction() {
-    this.socket.client.on(SocketEvent.POLL_ACTIONS, (msg) => {
-      switch (msg.action) {
-        case 'start-poll':
-          console.log('llego un start poll');
-          break;
-        case 'reveal-poll':
-          console.log('llego un reveal-poll');
-          break;
-        default:
-          console.log('que torta llego: ' + msg.action);
-      }
     });
   }
 }
