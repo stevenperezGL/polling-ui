@@ -39,6 +39,7 @@ export class PollSettingsComponent implements OnInit {
   private initListenCreateRoom() {
     this.socket.client.on(SocketEvent.CREATE_ROOM, (secretKey) => {
       this.secretRoomKey = secretKey;
+      this.showSecretKey = true;
       console.log('=========  CREATE_ROOM  =========');
       console.log(secretKey);
       console.log('=====  End of CREATE_ROOM>  =====');
