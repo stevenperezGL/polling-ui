@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SocketService} from '../../socket/socket.service';
 import {SocketEvent} from '../../socket/socket.interface';
+import {ComponentFixtureNoNgZone} from "@angular/core/testing";
 
 @Component({
   selector: 'app-poll-settings',
@@ -24,21 +25,42 @@ export class PollSettingsComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.initListenCreateRoom();
   }
 
   private initListenQuitRoom(secretKey: string) {
-    this.socket.client.on(`${SocketEvent.CONNECTION}-${secretKey}`, (msg) => {
-      console.log('llego un start poll');
+    this.socket.client.on(`${SocketEvent.QUIT_ROOM}-${secretKey}`, (msg) => {
+      console.log('=========  QUIT_ROOM  =========');
+      console.log(msg);
+      console.log('=====  End of QUIT_ROOM>  =====');
     });
   }
+
+  private initListenCreateRoom() {
+    this.socket.client.on(SocketEvent.CREATE_ROOM, (secretKey) => {
+      this.secretRoomKey = secretKey;
+      console.log('=========  CREATE_ROOM  =========');
+      console.log(secretKey);
+      console.log('=====  End of CREATE_ROOM>  =====');
+    });
+  }
+
   private initListenJoinPoll(secretKey: string) {
     this.socket.client.on(`${SocketEvent.JOIN_ROOM}-${secretKey}`, (msg) => {
-      console.log('llego un start poll');
+      console.log('=========  JOIN_ROOM  =========');
+      console.log(msg);
+      console.log('=====  End of JOIN_ROOM>  =====');
     });
   }
+
   private initListenPollAction(secretKey: string) {
     this.socket.client.on(`${SocketEvent.POLL_ACTIONS}-${secretKey}`, (msg) => {
-      switch (msg.action) {
+      console.log('=========  POLL_ACTIONS  =========');
+      console.log(msg);
+      console.log('=====  End of POLL_ACTIONS>  =====');
+      const message: any = JSON.parse(msg);
+
+      switch (message.action) {
         case 'start-poll':
           console.log('llego un start poll');
           break;
@@ -46,7 +68,7 @@ export class PollSettingsComponent implements OnInit {
           console.log('llego un reveal-poll');
           break;
         default:
-          console.log('que torta llego: ' + msg.action);
+          console.log('que torta llego: ' + message.action);
       }
     });
   }

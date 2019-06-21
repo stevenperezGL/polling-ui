@@ -20,12 +20,5 @@ export class AppComponent implements OnInit {
     });
   }
 
-  ngOnInit() {
-    this.initListenCreateRoom();
-  }
-  private initListenCreateRoom() {
-    this.socket.client.on(SocketEvent.CONNECTION, (msg) => {
-      console.log('llego un start poll');
-    });
-  }
+  ngOnInit() {}
 }
