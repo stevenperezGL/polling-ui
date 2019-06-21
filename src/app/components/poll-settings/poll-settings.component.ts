@@ -97,6 +97,11 @@ export class PollSettingsComponent implements OnInit {
     this.socket.client.emit(SocketEvent.CREATE_ROOM);
   }
 
+  public quitRoom() {
+    this.socket.client.emit(SocketEvent.QUIT_ROOM);
+    localStorage.clear();
+  }
+
   public revealPoll() {
     this.pollOptions.action = 'reveal-poll';
     this.pollOptions.votingMethod = this.pollType;

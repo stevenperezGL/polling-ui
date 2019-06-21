@@ -25,7 +25,14 @@
             <input class="form-control" type="text" placeholder="Secret" [(ngModel)]="secretInput">
         </div>
         <div class="col-md-6">
-            <button type="button" class="btn btn-primary" (click)="joinRoom()">JOIN POLL</button>
+            <button type="button" class="btn btn-primary" (click)="joinRoom()">JOIN ROOM</button>
+        </div>
+    </div>
+    <div>
+        <div class="row justify-content-md-center">
+            <div class="col-md-6">
+                <button type="button" class="btn btn-primary" (click)="quitRoom()">EXIT ROOM</button>
+            </div>
         </div>
     </div>
     <div class="row justify-content-md-center">
