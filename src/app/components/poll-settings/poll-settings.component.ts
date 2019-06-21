@@ -42,6 +42,7 @@ export class PollSettingsComponent implements OnInit {
       console.log('=========  CREATE_ROOM  =========');
       console.log(secretKey);
       console.log('=====  End of CREATE_ROOM>  =====');
+      this.listenEvents(secretKey);
     });
   }
 
