@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {SocketService} from '../../socket/socket.service';
 
 @Component({
   selector: 'app-poll-settings',
@@ -10,7 +11,8 @@ export class PollSettingsComponent implements OnInit {
   public showSecretKey = false;
   public secretRoomKey: string;
   public secretInput: string;
-  constructor() { }
+  constructor( private socketService: SocketService) {
+  }
 
   ngOnInit() {
   }
