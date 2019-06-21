@@ -1,3 +1,12 @@
 <h3>
-  {{options}}
+  Poll Vote
 </h3>
+<div>
+  <div *ngFor="let option of options" class="form-check form-check-inline">
+    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value={{option}} [(ngModel)]='selectedOption' [disabled]="disabled">
+    <label class="form-check-label" for="inlineRadio1">{{option}}</label>
+  </div>
+  <div>
+    <button type="submit" class="btn btn-success" (click)="submitVote()">SUBMIT</button>
+  </div>
+</div>

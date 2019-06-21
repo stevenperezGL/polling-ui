@@ -9,10 +9,19 @@ export class PollVoteComponent implements OnInit {
 
   @Input() options: [];
 
+  public selectedOption : string;
+  public disabled : boolean = false;
+
   constructor() { 
   }
 
   ngOnInit() {
+  }
+
+  private submitVote() : void {
+    this.disabled = true;
+    console.log('selected option: ', this.selectedOption);
+    
   }
 
 }
