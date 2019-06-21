@@ -29,8 +29,4 @@ import {SocketEvent} from "./socket/socket.interface";
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule {
-  constructor(private socket: SocketService) {
-    this.socket.initConnection();
-  }
-}
+export class AppModule {}

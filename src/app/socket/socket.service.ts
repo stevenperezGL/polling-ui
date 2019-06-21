@@ -17,7 +17,7 @@ export class SocketService {
   }
 
   public initSocketClient(): void {
-    this.client = io(this.buildBrokerURL());
+    this.client = io.connect(this.buildBrokerURL());
   }
 
   public initConnection(): void {
