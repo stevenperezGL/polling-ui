@@ -20,10 +20,12 @@ export class PollVoteComponent implements OnInit {
   }
 
   ngOnInit() {
+  console.log('event: ', `${SocketEvent.SUBMIT_VOTE}-${this.secretKey}`);
   this.socket.client.on(`${SocketEvent.SUBMIT_VOTE}-${this.secretKey}`, (response) => {
+    console.log('LLEGAAAA ', response);
     const {option} = response;
     const votes = localStorage.getItem('votes') || '';
-    const votesArray = JSON.parse(votes);
+    const votesArray = Array.isArray(votes) ? votes : JSON.parse(votes);
     votesArray.push(option);
     localStorage.setItem('votes', JSON.stringify(votesArray));
   });
