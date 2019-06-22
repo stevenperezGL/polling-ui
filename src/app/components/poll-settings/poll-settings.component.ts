@@ -111,6 +111,7 @@ export class PollSettingsComponent implements OnInit {
   }
 
   public startPoll() {
+    localStorage.setItem('votes', JSON.stringify([]));
     this.pollOptions.action = 'start-poll';
     this.pollOptions.votingMethod = this.pollType;
     this.pollOptions.secretKey = localStorage.getItem('secretKey');
