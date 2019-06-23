@@ -11,10 +11,11 @@ export class AppComponent implements OnInit {
   title = 'polling-ui';
   public userId = localStorage.getItem('userId');
   public options = [];
-  public secretKey : string;
+  public secretKey: string;
 
   constructor(private socket: SocketService) {
     this.secretKey = localStorage.getItem('secretKey');
+    localStorage.setItem('connectedUsers', '');
     this.socket.initConnection();
     this.socket.client.on(SocketEvent.CONNECTION, (msg) => {
       console.log('=========  CONNECTION  =========');
