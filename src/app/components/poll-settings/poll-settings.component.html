@@ -8,7 +8,7 @@
             <span>SECRET ROOM: {{secretRoomKey}}</span>
         </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="secretRoomKey">
       <div class="col-md-6">
       <select class="browser-default custom-select">
           <option value="1">Fibonacci</option>
@@ -20,7 +20,7 @@
         </div>
       </div>
     </div>
-    <div class="row">
+    <div class="row" *ngIf="!secretRoomKey">
         <div class="col-md-6">
             <input class="form-control" type="text" placeholder="Secret" [(ngModel)]="secretInput">
         </div>
@@ -28,16 +28,16 @@
             <button type="button" class="btn btn-primary" (click)="joinRoom()">JOIN ROOM</button>
         </div>
     </div>
+    <div class="row justify-content-md-center" *ngIf="secretRoomKey">
+        <div class="col-md-6">
+            <button type="button" class="btn btn-primary" (click)="revealPoll()">REVEAL POLL</button>
+        </div>
+    </div>
     <div>
         <div class="row justify-content-md-center">
             <div class="col-md-6">
-                <button type="button" class="btn btn-primary" (click)="quitRoom()">EXIT ROOM</button>
+                <button type="button" class="btn btn-danger" (click)="quitRoom()">EXIT ROOM</button>
             </div>
-        </div>
-    </div>
-    <div class="row justify-content-md-center">
-        <div class="col-md-6">
-        <button type="button" class="btn btn-primary" (click)="revealPoll()">REVEAL POLL</button>
         </div>
     </div>
 </div>
