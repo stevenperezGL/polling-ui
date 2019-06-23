@@ -29,10 +29,8 @@ export class PollSettingsComponent implements OnInit {
   }
 
   private initListenQuitRoom(secretKey: string) {
-    this.socket.client.on(`${SocketEvent.QUIT_ROOM}-${secretKey}`, (msg) => {
-      console.log('=========  QUIT_ROOM  =========');
-      console.log(msg);
-      console.log('=====  End of QUIT_ROOM>  =====');
+    this.socket.client.on(`${SocketEvent.QUIT_ROOM}-${secretKey}`, () => {
+      localStorage.clear();
     });
   }
 
